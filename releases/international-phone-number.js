@@ -6,7 +6,7 @@
     autoHideDialCode: true,
     autoPlaceholder: true,
     customPlaceholder: null,
-    defaultCountry: "",
+    initialCountry: "",
     geoIpLookup: null,
     nationalMode: true,
     numberType: "MOBILE",
@@ -77,7 +77,7 @@
           });
           scope.$watch('country', function(newValue) {
             if (newValue !== null && newValue !== void 0 && newValue !== '') {
-              return element.intlTelInput("selectCountry", newValue);
+              return element.intlTelInput("setCountry", newValue);
             }
           });
           ctrl.$formatters.push(function(value) {

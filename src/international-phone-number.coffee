@@ -10,7 +10,7 @@ angular.module("internationalPhoneNumber", [])
     autoHideDialCode:       true
     autoPlaceholder:        true
     customPlaceholder:      null
-    defaultCountry:         ""
+    initialCountry:         ""
     geoIpLookup:            null
     nationalMode:           true
     numberType:             "MOBILE"
@@ -84,7 +84,7 @@ angular.module("internationalPhoneNumber", [])
 
     scope.$watch('country', (newValue) ->
         if newValue != null && newValue != undefined && newValue != ''
-            element.intlTelInput("selectCountry", newValue)
+            element.intlTelInput("setCountry", newValue)
     )
 
     ctrl.$formatters.push (value) ->
