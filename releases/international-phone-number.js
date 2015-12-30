@@ -21,7 +21,8 @@
         require: '^ngModel',
         scope: {
           ngModel: '=',
-          country: '='
+          country: '=',
+          geoIpLookup: '&'
         },
         link: function(scope, element, attrs, ctrl) {
           var handleWhatsSupposedToBeAnArray, options, read, watchOnce;
@@ -60,6 +61,7 @@
               return options[key] = option;
             }
           });
+          options['geoIpLookup'] = scope.geoIpLookup ? scope.geoIpLookup() : null;
           watchOnce = scope.$watch('ngModel', function(newValue) {
             return scope.$$postDigest(function() {
               if (newValue !== null && newValue !== void 0 && newValue.length > 0) {
