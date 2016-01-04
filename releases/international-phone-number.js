@@ -83,11 +83,13 @@
             }
           });
           ctrl.$formatters.push(function(value) {
-            if (!value) {
-              return value;
+            if (value) {
+              if (value.charAt(0) !== '+') {
+                value = '+' + value;
+              }
+              element.intlTelInput('setNumber', value);
             }
-            element.intlTelInput('setNumber', value);
-            return element.val();
+            return value;
           });
           ctrl.$parsers.push(function(value) {
             if (!value) {

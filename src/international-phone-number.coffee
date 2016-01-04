@@ -89,11 +89,13 @@ angular.module("internationalPhoneNumber", [])
     )
 
     ctrl.$formatters.push (value) ->
-      if !value
-        return value
+      if value
+        if value.charAt(0) != '+'
+          value = '+' + value
 
-      element.intlTelInput 'setNumber', value
-      element.val()
+        element.intlTelInput 'setNumber', value
+        
+      value
 
     ctrl.$parsers.push (value) ->
       if !value
