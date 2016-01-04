@@ -27,6 +27,7 @@ angular.module("internationalPhoneNumber", [])
   scope:
     ngModel: '='
     country: '='
+    geoIpLookup: '&'
 
   link: (scope, element, attrs, ctrl) ->
 
@@ -60,7 +61,7 @@ angular.module("internationalPhoneNumber", [])
         options[key] = (option == "true")
       else
         options[key] = option
-
+    options['geoIpLookup'] = if scope.geoIpLookup then scope.geoIpLookup() else null
     # Wait for ngModel to be set
     watchOnce = scope.$watch('ngModel', (newValue) ->
       # Wait to see if other scope variables were set at the same time
