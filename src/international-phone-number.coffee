@@ -48,6 +48,12 @@ angular.module("internationalPhoneNumber", [])
       else
         value.toString().replace(/[ ]/g, '').split(',')
 
+    setFormattedValue = () ->
+      fullNumber = element.intlTelInput('getNumber');
+      countryCode = element.intlTelInput('getSelectedCountryData').iso2;
+      ctrl.formattedValue = intlTelInputUtils
+          .formatNumberByType(fullNumber, countryCode, intlTelInputUtils.numberFormat.INTERNATIONAL);
+
     options = angular.copy(ipnConfig)
 
     angular.forEach options, (value, key) ->
@@ -94,6 +100,7 @@ angular.module("internationalPhoneNumber", [])
           value = '+' + value
 
         element.intlTelInput 'setNumber', value
+        setFormattedValue()
         
       value
 
@@ -101,6 +108,7 @@ angular.module("internationalPhoneNumber", [])
       if !value
         return value
 
+      setFormattedValue()
       element.intlTelInput('getNumber').replace(/[^\d]/g, '')
 
     ctrl.$validators.internationalPhoneNumber = (value) ->

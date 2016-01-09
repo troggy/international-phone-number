@@ -25,7 +25,7 @@
           geoIpLookup: '&'
         },
         link: function(scope, element, attrs, ctrl) {
-          var handleWhatsSupposedToBeAnArray, options, read, watchOnce;
+          var handleWhatsSupposedToBeAnArray, options, read, setFormattedValue, watchOnce;
           if (ctrl) {
             if (element.val() !== '') {
               $timeout(function() {
@@ -43,6 +43,12 @@
             } else {
               return value.toString().replace(/[ ]/g, '').split(',');
             }
+          };
+          setFormattedValue = function() {
+            var countryCode, fullNumber;
+            fullNumber = element.intlTelInput('getNumber');
+            countryCode = element.intlTelInput('getSelectedCountryData').iso2;
+            return ctrl.formattedValue = intlTelInputUtils.formatNumberByType(fullNumber, countryCode, intlTelInputUtils.numberFormat.INTERNATIONAL);
           };
           options = angular.copy(ipnConfig);
           angular.forEach(options, function(value, key) {
@@ -88,6 +94,7 @@
                 value = '+' + value;
               }
               element.intlTelInput('setNumber', value);
+              setFormattedValue();
             }
             return value;
           });
@@ -95,6 +102,7 @@
             if (!value) {
               return value;
             }
+            setFormattedValue();
             return element.intlTelInput('getNumber').replace(/[^\d]/g, '');
           });
           ctrl.$validators.internationalPhoneNumber = function(value) {
