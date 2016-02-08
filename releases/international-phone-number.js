@@ -53,14 +53,14 @@
               divIntlTelInput.find('select:first').attr('disabled', true);
               divIntlTelInput.find('.iti-arrow').hide();
               readOnlySpan = divIntlTelInput.find('span.' + readOnlyClass);
-              if (readOnlySpan.length === 0) {
+              if (readOnlySpan.length === 0 && element.val() !== '') {
                 readOnlySpan = angular.element('<span></span>');
                 readOnlySpan.attr('class', readOnlyClass);
                 readOnlySpan.attr('style', 'padding-left: 38px');
                 element.hide();
                 element.after(readOnlySpan);
               }
-              return readOnlySpan.text(element.val());
+              readOnlySpan.text(element.val());
             }
           };
           options = angular.copy(ipnConfig);

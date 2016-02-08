@@ -56,13 +56,14 @@ angular.module("internationalPhoneNumber", [])
         divIntlTelInput.find('select:first').attr('disabled', true)
         divIntlTelInput.find('.iti-arrow').hide()
         readOnlySpan = divIntlTelInput.find('span.' + readOnlyClass)
-        if readOnlySpan.length == 0
+        if readOnlySpan.length == 0 and element.val() != ''
           readOnlySpan = angular.element('<span></span>')
           readOnlySpan.attr('class', readOnlyClass)
           readOnlySpan.attr('style', 'padding-left: 38px')
           element.hide()
           element.after(readOnlySpan)
         readOnlySpan.text(element.val())
+      return
 
     options = angular.copy(ipnConfig)
 
