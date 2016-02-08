@@ -84,6 +84,11 @@ with countries only:
 <input type="text" international-phone-number only-countries ng-model="phone">
 ```
 
+read only field:
+```html
+<input type="text" international-phone-number ng-model="phone" readonly="true">
+```
+
 Feel free to mix options together:
 ```html
 <input type="text" international-phone-number only-countries="pl, de, en, es" default-country="pl" preferred-countries="pl, de" ng-model="phone">

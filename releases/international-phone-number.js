@@ -25,7 +25,7 @@
           geoIpLookup: '&'
         },
         link: function(scope, element, attrs, ctrl) {
-          var handleWhatsSupposedToBeAnArray, options, read, watchOnce;
+          var checkReadOnly, handleWhatsSupposedToBeAnArray, options, read, watchOnce;
           if (ctrl) {
             if (element.val() !== '') {
               $timeout(function() {
@@ -42,6 +42,25 @@
               return value;
             } else {
               return value.toString().replace(/[ ]/g, '').split(',');
+            }
+          };
+          checkReadOnly = function() {
+            var divIntlTelInput, readOnly, readOnlyClass, readOnlySpan;
+            readOnly = attrs.readonly;
+            if (readOnly) {
+              readOnlyClass = 'intl-tel-input-read-only';
+              divIntlTelInput = element.parents('.intl-tel-input:first');
+              divIntlTelInput.find('select:first').attr('disabled', true);
+              divIntlTelInput.find('.iti-arrow').hide();
+              readOnlySpan = divIntlTelInput.find('span.' + readOnlyClass);
+              if (readOnlySpan.length === 0 && element.val() !== '') {
+                readOnlySpan = angular.element('<span></span>');
+                readOnlySpan.attr('class', readOnlyClass);
+                readOnlySpan.attr('style', 'padding-left: 38px');
+                element.hide();
+                element.after(readOnlySpan);
+              }
+              readOnlySpan.text(element.val());
             }
           };
           options = angular.copy(ipnConfig);
@@ -87,6 +106,7 @@
               return value;
             }
             element.intlTelInput('setNumber', value);
+            checkReadOnly();
             return element.val();
           });
           ctrl.$parsers.push(function(value) {
